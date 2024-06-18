@@ -31,7 +31,7 @@ jobs:
           
   deploy:
     needs: build
-    runs-on: ip-172-31-34-119
+    runs-on: aws_ec2
     steps:
       -  name: pull the image from the dockerhub
          run: docker pull this23/helloworld-nextjs:4a8d3896f47e7a282b5dcbaf5b71e9163e36dc0e
