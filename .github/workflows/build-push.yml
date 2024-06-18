@@ -35,9 +35,9 @@ jobs:
     steps:
 
       -  name: pull the image from the dockerhub
-         run: docker pull this23/helloworld-nextjs:4a8d3896f47e7a282b5dcbaf5b71e9163e36dc0e
+         run: sudo docker pull this23/helloworld-nextjs:4a8d3896f47e7a282b5dcbaf5b71e9163e36dc0e
       -  name: Delete the old container
-         run: docker rm -f app
+         run: sudo docker rm -f app
       -  name: Run the docker container
-         run : docker run -d -p 3000:3000 --name app this23/helloworld-nextjs:4a8d3896f47e7a282b5dcbaf5b71e9163e36dc0e
+         run : sudo docker run -d -p 3000:3000 --name app this23/helloworld-nextjs:4a8d3896f47e7a282b5dcbaf5b71e9163e36dc0e
       
