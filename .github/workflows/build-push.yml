@@ -28,3 +28,16 @@ jobs:
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
           docker tag $IMAGE_NAME:$IMAGE_TAG ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
+
+      - name: Deploy to ec2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            docker pull this23/helloworld-nextjs:bd38da7ac5c25c9da97d527ed5ef39103a981548
+            docker stop nextjs-app || true
+            docker rm nextjs-app || true
+            docker run -d -p 3000:3000 --name nextjs-app  this23/helloworld-nextjs:bd38da7ac5c25c9da97d527ed5ef39103a981548
